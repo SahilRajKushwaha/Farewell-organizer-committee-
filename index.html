@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -9,267 +9,138 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#000;color:#fff}
 
-/* ================= WELCOME PAGE ================= */
+/* ================= WELCOME ================= */
 .welcome-page{
-  position:fixed;
-  inset:0;
-  z-index:20;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+  position:fixed;inset:0;z-index:20;
+  display:flex;justify-content:center;align-items:center;
 }
 .welcome-page video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
 .welcome-page::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  pointer-events:none;
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,.6);pointer-events:none;
 }
-.welcome-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-.welcome-content h1{
-  font-size:3.2rem;
-  letter-spacing:6px;
-  text-shadow:0 0 50px rgba(255,255,255,.7);
-  margin-bottom:50px;
-}
+.welcome-content{position:relative;z-index:2;text-align:center}
+.welcome-content h1{font-size:3rem;letter-spacing:6px;margin-bottom:40px}
 
-/* 🌟 PREMIUM CIRCULAR BUTTON */
+/* Rectangle Welcome Button */
 .enter-btn{
-  position:relative;
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  border:none;
+  width:240px;height:55px;border-radius:14px;border:none;
+  background:linear-gradient(135deg,#caa7ff,#6c4cff);
+  color:#fff;font-size:1.2rem;font-weight:600;letter-spacing:1px;
   cursor:pointer;
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(12px);
-  color:#fff;
-  font-size:2.2rem;
-  box-shadow:
-    0 0 40px rgba(200,160,255,.8),
-    inset 0 0 20px rgba(255,255,255,.25);
-}
-.enter-btn::before{
-  content:"";
-  position:absolute;
-  inset:-6px;
-  border-radius:50%;
-  background:conic-gradient(#caa7ff,#6c4cff,#caa7ff);
-  animation:spin 4s linear infinite;
-  z-index:-1;
-}
-.enter-btn:hover{
-  transform:scale(1.08);
-}
-.enter-btn:active{
-  transform:scale(.95);
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
+  box-shadow:0 0 30px rgba(200,160,255,.8);
+  animation:pulseGlow 3s infinite;
 }
 
 /* ================= LOGIN ================= */
 .login-page{
-  position:fixed;
-  inset:0;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:15;
+  position:fixed;inset:0;display:none;
+  justify-content:center;align-items:center;
 }
 .login-page video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
 .login-page::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  pointer-events:none;
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,.5);pointer-events:none;
 }
 .login-card{
-  position:relative;
+  position:relative;z-index:2;
   background:rgba(255,255,255,.25);
-  backdrop-filter:blur(14px);
-  padding:30px;
-  width:300px;
-  border-radius:18px;
-  text-align:center;
+  backdrop-filter:blur(15px);
+  padding:30px;width:300px;border-radius:20px;text-align:center;
+  animation:fadeUp 1.2s ease;
 }
-.login-card input{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border:0;
-  border-radius:8px;
+.login-card input,.login-card button{
+  width:100%;padding:10px;margin:8px 0;border-radius:8px;border:0;
 }
-.login-card button{
-  width:100%;
-  padding:10px;
-  border:0;
-  border-radius:8px;
-  cursor:pointer;
-}
-.error{display:none;margin-top:10px;color:#ff6961}
+.error{display:none;color:#ff6b6b}
 
 /* ================= TRANSITION ================= */
 .transition{
-  display:none;
-  position:fixed;
-  inset:0;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
+  position:fixed;inset:0;display:none;
+  justify-content:center;align-items:center;
 }
 .transition video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
 .transition::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  pointer-events:none;
+  content:"";position:absolute;inset:0;
+  background:rgba(0,0,0,.6);pointer-events:none;
 }
 .transition-content{
-  position:relative;
-  text-align:center;
+  position:relative;z-index:2;text-align:center;
+  animation:fadeUp 1.2s ease;
 }
 #startBtn{
-  margin-top:20px;
-  padding:12px 34px;
-  border-radius:25px;
-  border:none;
-  cursor:pointer;
+  margin-top:20px;padding:12px 30px;border-radius:25px;
+  border:none;cursor:pointer;
+  animation:pulseGlow 3s infinite;
 }
 
 /* ================= MAIN ================= */
-.main-page{
-  display:none;
-  min-height:100vh;
-}
+.main-page{display:none;min-height:100vh}
 .main-video{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-2;
+  position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
 }
 .main-page::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  z-index:-1;
-  pointer-events:none;
+  content:"";position:fixed;inset:0;
+  background:rgba(0,0,0,.55);z-index:-1;pointer-events:none;
 }
-.content{
-  padding:40px 20px;
-  text-align:center;
+.content{padding:50px 20px;text-align:center}
+
+/* Invitation */
+.invitation-box{
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(15px);
+  padding:30px;border-radius:20px;margin-bottom:40px;
+  animation:fadeUp 1.2s ease;
+}
+.invitation-box img{
+  max-width:100%;border-radius:15px;margin-bottom:15px;
+  animation:floatImg 4s ease-in-out infinite;
+}
+.map-btn{
+  margin-top:10px;padding:10px 20px;border:none;border-radius:10px;
+  cursor:pointer;animation:pulseGlow 3s infinite;
 }
 
 /* Countdown */
-#timer{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  flex-wrap:wrap;
-}
+#timer{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
 .time-box{
-  width:110px;
-  padding:18px;
-  border-radius:20px;
+  width:100px;padding:15px;border-radius:15px;
   background:rgba(255,255,255,.1);
-  backdrop-filter:blur(16px);
-  box-shadow:0 0 25px rgba(200,160,255,.4);
+  animation:fadeUp 1s ease;
 }
-.time-box span{
-  font-size:2.2rem;
-  font-weight:700;
-}
-.time-box small{opacity:.8}
+.time-box span{font-size:2rem;font-weight:700}
 
-/* Invitation Box */
-.invitation-box{
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(12px);
-  padding:30px;
-  border-radius:20px;
-  text-align:center;
-  margin-bottom:40px;
-  color:#fff;
-  box-shadow:0 0 30px rgba(200,160,255,.4);
-}
-.invitation-box h1{
-  font-size:3rem;
-  margin-bottom:20px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.7);
-}
-.invitation-box h2{
-  font-size:1.2rem;
-  line-height:1.5;
-  margin-bottom:20px;
-}
-.map-btn{
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  background:rgba(255,255,255,0.25);
-  backdrop-filter: blur(10px);
-  color:#fff;
-  font-weight:600;
-  box-shadow:0 0 20px rgba(200,160,255,.5);
-}
-.map-btn:hover{
-  background:rgba(255,255,255,0.35);
-}
-
-/* Contact Box */
+/* Contact */
 .contact-box{
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  padding:20px;
-  border-radius:15px;
-  text-align:center;
   margin-top:30px;
-  color:#fff;
-  box-shadow:0 0 20px rgba(200,160,255,.3);
+  background:rgba(255,255,255,.12);
+  padding:20px;border-radius:15px;
+  animation:fadeUp 1.2s ease;
 }
-.contact-box h2{
-  font-size:1.3rem;
-  margin-bottom:10px;
+.contact-box a{color:#fff}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
 }
-.contact-box a{
-  color:#fff;
-  text-decoration:underline;
-  font-weight:600;
+@keyframes pulseGlow{
+  0%{box-shadow:0 0 15px rgba(200,160,255,.4)}
+  50%{box-shadow:0 0 40px rgba(200,160,255,1)}
+  100%{box-shadow:0 0 15px rgba(200,160,255,.4)}
 }
-.contact-box a:hover{
-  color:#caa7ff;
+@keyframes floatImg{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
 }
+button:hover{transform:scale(1.08)}
+button:active{transform:scale(.95)}
 </style>
 </head>
 
@@ -279,34 +150,28 @@ body{background:#000;color:#fff}
 
 <!-- WELCOME -->
 <div class="welcome-page" id="welcomePage">
-  <video autoplay muted loop playsinline poster="poster1.jpg">
-    <source src="video4.mp4" type="video/mp4">
-  </video>
+  <video autoplay muted loop><source src="video4.mp4"></video>
   <div class="welcome-content">
     <h1>WELCOME XAVERIAN’S</h1>
-    <button class="enter-btn" aria-label="Enter Site" onclick="enterSite()">▶</button>
+    <button class="enter-btn" onclick="enterSite()">ENTER EXPERIENCE</button>
   </div>
 </div>
 
 <!-- LOGIN -->
 <div class="login-page" id="loginPage">
-  <video autoplay muted loop playsinline poster="poster2.jpg">
-    <source src="video1.mp4" type="video/mp4">
-  </video>
+  <video autoplay muted loop><source src="video1.mp4"></video>
   <div class="login-card">
     <h2>🔒 Memory Lock</h2>
     <input id="username" placeholder="Name">
     <input id="password" type="password" placeholder="Secret Code">
-    <button onclick="login()">Unlock</button>
+    <button id="loginBtn">Unlock</button>
     <div class="error" id="error">Access denied</div>
   </div>
 </div>
 
 <!-- TRANSITION -->
 <div class="transition" id="transition">
-  <video autoplay muted loop playsinline poster="poster3.jpg">
-    <source src="video2.mp4" type="video/mp4">
-  </video>
+  <video autoplay muted loop><source src="video2.mp4"></video>
   <div class="transition-content">
     <h1 id="welcomeText"></h1>
     <button id="startBtn">Start the Journey</button>
@@ -315,118 +180,97 @@ body{background:#000;color:#fff}
 
 <!-- MAIN -->
 <div class="main-page" id="mainPage">
-  <video class="main-video" autoplay muted loop playsinline poster="poster4.jpg">
-    <source src="video3.mp4" type="video/mp4">
-  </video>
-
+  <video class="main-video" autoplay muted loop><source src="video3.mp4"></video>
   <div class="content">
-    <!-- Invitation Section -->
+
     <div class="invitation-box">
-      <h1>You Are Invited</h1>
-      <h2>
-        Not every goodbye needs words; some need memories.<br>
-        Let's gather one last time to relive laughter, friendships, and moments that made our school journey unforgettable.<br>
-        No rules. No uniforms.<br>
-        Just hearts full of memories.
-      </h2>
+      <img src="invitation.jpg">
       <p><strong>Date:</strong> 10 Jan 2026, 10:00 AM</p>
       <p><strong>Location:</strong> Amar Resort, Motihari</p>
       <button class="map-btn" onclick="openMap()">View Location</button>
     </div>
 
-    <!-- Countdown -->
     <h2>⏳ Farewell Begins In</h2>
     <div id="timer"></div>
 
-    <!-- Contact Email -->
     <div class="contact-box">
-      <h2>For any queries, contact:</h2>
-      <p><a href="mailto:yshivamkumar212@gmail.com">yshivamkumar212@gmail.com</a></p>
+      <h2>For any queries:</h2>
+      <a href="mailto:yshivamkumar212@gmail.com">yshivamkumar212@gmail.com</a>
     </div>
+
   </div>
 </div>
 
 <script>
-const allowedUsers = ["Shivam","Ayush Mehta","Pranjal","Shreyansh","Kunj"];
-const correctPass = "lencho";
-const music = document.getElementById("globalMusic");
+const users=["shivam","ayush mehta","pranjal","shreyansh","kunj"];
+const pass="lencho";
+const music=document.getElementById("globalMusic");
 
-// Elements
-const welcomePage = document.getElementById("welcomePage");
-const loginPage = document.getElementById("loginPage");
-const transition = document.getElementById("transition");
-const mainPage = document.getElementById("mainPage");
-const welcomeText = document.getElementById("welcomeText");
-const startBtn = document.getElementById("startBtn");
-const timer = document.getElementById("timer");
-const error = document.getElementById("error");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
-
-let countdownInterval;
-
-/* Welcome → Login */
 function enterSite(){
-  music.volume = 0.6;
   music.play().catch(()=>{});
-  welcomePage.style.display = "none";
-  loginPage.style.display = "flex";
+  welcomePage.style.display="none";
+  loginPage.style.display="flex";
 }
 
-/* Login Function */
-function login(){
-  const usernameVal = usernameInput.value.trim().toLowerCase();
-  const passwordVal = passwordInput.value;
+loginBtn.onclick=()=>{
+  const u=username.value.toLowerCase().trim();
+  if(users.includes(u)&&password.value===pass){
+    loginPage.style.display="none";
+    transition.style.display="flex";
+    welcomeText.innerText="Welcome "+username.value;
+  }else error.style.display="block";
+};
 
-  if(allowedUsers.some(u => u.toLowerCase() === usernameVal) && passwordVal === correctPass){
-    loginPage.style.display = "none";
-    transition.style.display = "flex";
-    welcomeText.innerText = `Welcome ${usernameInput.value.trim()}`;
-    error.style.display = "none";
-  } else {
-    error.style.display = "block";
-  }
-}
-
-// Hide error when typing
-[usernameInput, passwordInput].forEach(i => i.addEventListener("input",()=>error.style.display="none"));
-
-// Login on Enter key
-[usernameInput, passwordInput].forEach(i => i.addEventListener("keydown", e => {if(e.key==="Enter") login();}));
-
-/* Transition → Main */
-startBtn.onclick = () => {
-  transition.remove();
-  mainPage.style.display = "block";
+startBtn.onclick=()=>{
+  transition.style.display="none";
+  mainPage.style.display="block";
+  fadeMusic();
+  confetti();
   startCountdown();
 };
 
-/* Countdown */
-function startCountdown(){
-  const target = new Date("Jan 10, 2026 10:00").getTime();
-  if(countdownInterval) clearInterval(countdownInterval);
-  countdownInterval = setInterval(()=>{
-    const d = target - Date.now();
-    if(d <= 0){
-      clearInterval(countdownInterval);
-      timer.innerHTML = `<div class="time-box"><span>0</span><small>DAYS</small></div>
-                         <div class="time-box"><span>0</span><small>HOURS</small></div>
-                         <div class="time-box"><span>0</span><small>MIN</small></div>
-                         <div class="time-box"><span>0</span><small>SEC</small></div>`;
-      return;
-    }
-    timer.innerHTML = `
-      <div class="time-box"><span>${Math.floor(d/86400000)}</span><small>DAYS</small></div>
-      <div class="time-box"><span>${Math.floor(d/3600000)%24}</span><small>HOURS</small></div>
-      <div class="time-box"><span>${Math.floor(d/60000)%60}</span><small>MIN</small></div>
-      <div class="time-box"><span>${Math.floor(d/1000)%60}</span><small>SEC</small></div>`;
-  }, 1000);
+function openMap(){
+  window.open("https://www.google.com/maps/search/?api=1&query=Amar+Resort+Motihari","_blank");
 }
 
-/* Open Map */
-function openMap(){
-  window.open("https://www.google.com/maps/search/?api=1&query=Amar+Resort+Motihari", "_blank");
+function startCountdown(){
+  const target=new Date("Jan 10, 2026 10:00").getTime();
+  setInterval(()=>{
+    const d=target-Date.now();
+    timer.innerHTML=`
+    <div class="time-box"><span>${Math.max(0,Math.floor(d/86400000))}</span><small>DAYS</small></div>
+    <div class="time-box"><span>${Math.max(0,Math.floor(d/3600000)%24)}</span><small>HRS</small></div>
+    <div class="time-box"><span>${Math.max(0,Math.floor(d/60000)%60)}</span><small>MIN</small></div>
+    <div class="time-box"><span>${Math.max(0,Math.floor(d/1000)%60)}</span><small>SEC</small></div>`;
+  },1000);
 }
+
+/* Music Fade */
+function fadeMusic(){
+  let v=0;music.volume=0;
+  const i=setInterval(()=>{
+    if(v>=0.6) clearInterval(i);
+    music.volume=v+=0.05;
+  },200);
+}
+
+/* Confetti */
+function confetti(){
+  for(let i=0;i<40;i++){
+    const c=document.createElement("div");
+    c.style.cssText=`
+      position:fixed;top:-20px;left:${Math.random()*100}vw;
+      width:8px;height:8px;
+      background:hsl(${Math.random()*360},100%,70%);
+      animation:fall ${2+Math.random()*2}s linear;
+      z-index:9999`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+const s=document.createElement("style");
+s.innerHTML=`@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}`;
+document.head.appendChild(s);
 </script>
 
 </body>
