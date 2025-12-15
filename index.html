@@ -24,7 +24,7 @@ body{min-height:100vh;overflow:hidden;background:#000}
   transition:opacity .2s ease;
 }
 
-/* cinematic vignette */
+/* vignette */
 body::after{
   content:"";
   position:fixed;
@@ -34,7 +34,7 @@ body::after{
   z-index:-1;
 }
 
-/* ========== LOGIN PAGE ========== */
+/* LOGIN */
 .login-page{
   height:100vh;display:flex;justify-content:center;align-items:center;
   background:linear-gradient(270deg,#ffb6c1,#87ceeb);
@@ -56,10 +56,10 @@ body::after{
 .login-card button{width:100%;padding:10px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}
 .error{color:#fff;margin-top:10px;display:none}
 
-/* ========== TRANSITION ========== */
+/* TRANSITION */
 .transition{
   display:none;height:100vh;
-  background:#ede154;
+  background:#f0e13a;
   justify-content:center;
   align-items:center;
   text-align:center;
@@ -71,7 +71,7 @@ body::after{
   cursor:pointer;
 }
 
-/* ========== MAIN PAGE ========== */
+/* MAIN */
 .main-page{
   display:none;
   min-height:100vh;
@@ -81,7 +81,7 @@ body::after{
   color:#f5f7fa;
 }
 
-/* 🎶 music icon */
+/* music icon */
 .music{position:fixed;top:15px;right:15px;font-size:24px;cursor:pointer}
 .music.playing{animation:glow 2s infinite}
 @keyframes glow{
@@ -89,118 +89,49 @@ body::after{
   50%{text-shadow:0 0 20px #a682ff}
 }
 
-/* 📜 Invitation card */
+/* invitation */
 .invitation-card{
-  position:relative;
   max-width:720px;
   margin:80px auto;
   border-radius:26px;
   overflow:hidden;
   box-shadow:0 30px 80px rgba(0,0,0,.6);
-  animation:fadeUp 1.4s ease;
 }
-.invitation-card img{width:100%;display:block;opacity:.9}
+.invitation-card img{width:100%;opacity:.9}
 
-@keyframes fadeUp{
-  from{transform:translateY(60px) scale(.96);opacity:0}
-  to{transform:none;opacity:1}
-}
-
-/* 🔮 NEON INFO CARDS (UPGRADED) */
+/* info cards */
 .info-card{
-  position:relative;
   margin:50px auto;
   max-width:520px;
   padding:28px;
   border-radius:24px;
-
-  background:linear-gradient(
-    135deg,
-    rgba(170,120,255,0.28),
-    rgba(120,90,220,0.18)
-  );
-
+  background:linear-gradient(135deg,rgba(170,120,255,0.28),rgba(120,90,220,0.18));
   backdrop-filter:blur(20px);
-  box-shadow:
-    0 0 30px rgba(180,130,255,.35),
-    inset 0 0 25px rgba(255,255,255,.08);
-
-  overflow:hidden;
-  transition:transform .4s ease;
-}
-
-.info-card:hover{
-  transform:translateY(-6px) scale(1.01);
-}
-
-/* 🌈 moving border light */
-.info-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:24px;
-  padding:2px;
-
-  background:linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(210,170,255,.9),
-    transparent 80%
-  );
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-
-  animation:borderMove 4s linear infinite;
-}
-
-@keyframes borderMove{
-  from{background-position:0%}
-  to{background-position:200%}
-}
-
-/* 💜 ambient glow pulse */
-.info-card::after{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:radial-gradient(circle,
-    rgba(190,140,255,.25),
-    transparent 60%);
-  filter:blur(60px);
-  opacity:.35;
-  animation:glowPulse 6s ease-in-out infinite;
-  pointer-events:none;
-}
-
-@keyframes glowPulse{
-  0%,100%{opacity:.25}
-  50%{opacity:.5}
+  box-shadow:0 0 30px rgba(180,130,255,.35);
 }
 
 #timer span{display:inline-block;margin:8px 12px;font-size:1.1rem}
 
-/* Map popup */
-.map-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);justify-content:center;align-items:center}
-.map-box{width:90%;max-width:500px;background:#fff;border-radius:15px;overflow:hidden}
-.map-box iframe{width:100%;height:300px;border:0}
-
-/* Smoke */
-.smoke{
-  position:fixed;
-  bottom:-50px;
-  width:200px;height:200px;
-  background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);
-  filter:blur(30px);
-  animation:smokeMove 18s linear infinite;
-  pointer-events:none;
+/* 🎯 Google Map Button Style */
+.info-card button{
+  margin-top:14px;
+  padding:12px 26px;
+  border-radius:22px;
+  border:none;
+  background:linear-gradient(135deg,#caa7ff,#8c6cff);
+  color:#fff;
+  font-size:0.95rem;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(190,140,255,.6);
 }
-@keyframes smokeMove{
-  from{transform:translateY(0);opacity:.4}
-  to{transform:translateY(-120vh);opacity:0}
+.info-card button:hover{
+  transform:scale(1.05);
+}
+
+.address{
+  margin-top:12px;
+  font-size:.9rem;
+  opacity:.8;
 }
 </style>
 </head>
@@ -208,10 +139,6 @@ body::after{
 <body>
 
 <div id="musicGlow"></div>
-
-<div class="smoke" style="left:15%"></div>
-<div class="smoke" style="left:50%;animation-delay:6s"></div>
-<div class="smoke" style="left:80%;animation-delay:12s"></div>
 
 <!-- LOGIN -->
 <div class="login-page" id="loginPage">
@@ -254,27 +181,21 @@ body::after{
 
   <div class="info-card">
     <h2>📍 Where</h2>
-    <button onclick="openMap()">Open Google Map</button>
+    <button onclick="openGoogleMap()">Open Google Map</button>
+    <div class="address">📌 Amar Resort, Motihari</div>
   </div>
 
   <footer style="margin:80px 0;opacity:.7">
     Contact:
-    <a href="mailto:yshivamkumar212@gmail.com" style="color:#caa7ff;text-decoration:none">
+    <a href="mailto:yshivamkumar212@gmail.com" style="color:#caa7ff">
       yshivamkumar212@gmail.com
     </a>
   </footer>
 </div>
 
-<div class="map-popup" id="mapPopup" onclick="closeMap()">
-  <div class="map-box" onclick="event.stopPropagation()">
-    <iframe src="https://www.google.com/maps?q=Amar%20Resort%20Motihari&output=embed"></iframe>
-  </div>
-</div>
-
 <script>
-const allowedUsers=["Shivam","Ayush Mehta","Pranjal","Shreyansh","Kunj"];
+const allowedUsers=["Shivam","Ayush Mehta","Pranjal","Shreyansh","Kunj","Abhigyan","Mahi","Rishav"];
 const correctPass="lencho";
-let audioCtx, analyser, dataArray;
 
 function login(){
 if(allowedUsers.includes(username.value.trim()) && password.value===correctPass){
@@ -288,24 +209,13 @@ startBtn.onclick=()=>{
 transition.style.display="none";
 mainPage.style.display="block";
 document.body.style.overflow="auto";
-bgMusic.volume=0;
 bgMusic.play();
-fadeMusic();
-musicBtn.classList.add('playing');
 startCountdown();
-startMusicGlow();
 }
 
-function fadeMusic(){
-let v=0;
-const f=setInterval(()=>{
-  v+=0.02;
-  bgMusic.volume=Math.min(v,0.6);
-  if(v>=0.6) clearInterval(f);
-},120);
+function toggleMusic(){
+bgMusic.paused?bgMusic.play():bgMusic.pause();
 }
-
-function toggleMusic(){bgMusic.paused?bgMusic.play():bgMusic.pause()}
 
 function startCountdown(){
 const target=new Date("Jan 10, 2026 18:00").getTime();
@@ -319,24 +229,12 @@ setInterval(()=>{
 },1000);
 }
 
-function openMap(){mapPopup.style.display="flex"}
-function closeMap(){mapPopup.style.display="none"}
-
-function startMusicGlow(){
-audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-const src=audioCtx.createMediaElementSource(bgMusic);
-analyser=audioCtx.createAnalyser();
-analyser.fftSize=256;
-dataArray=new Uint8Array(analyser.frequencyBinCount);
-src.connect(analyser);
-analyser.connect(audioCtx.destination);
-animateGlow();
-}
-function animateGlow(){
-requestAnimationFrame(animateGlow);
-analyser.getByteFrequencyData(dataArray);
-let avg=dataArray.reduce((a,b)=>a+b,0)/dataArray.length;
-musicGlow.style.opacity=0.35+avg/400;
+/* ✅ GUARANTEED MAP */
+function openGoogleMap(){
+window.open(
+  "https://www.google.com/maps/search/?api=1&query=Amar+Resort+Motihari",
+  "_blank"
+);
 }
 </script>
 
