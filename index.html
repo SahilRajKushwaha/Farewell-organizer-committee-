@@ -1,277 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farewell Invitation</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farewell Invitation</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#000;color:#fff}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+      body {
+        background: #000;
+        color: #fff;
+      }
 
-/* ================= WELCOME ================= */
-.welcome-page{
-  position:fixed;inset:0;z-index:20;
-  display:flex;justify-content:center;align-items:center;
-}
-.welcome-page video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-}
-.welcome-page::after{
-  content:"";position:absolute;inset:0;
-  background:rgba(0,0,0,.6);pointer-events:none;
-}
-.welcome-content{position:relative;z-index:2;text-align:center}
-.welcome-content h1{font-size:3rem;letter-spacing:6px;margin-bottom:40px}
+      /* ================= WELCOME ================= */
+      .welcome-page {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .welcome-page video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .welcome-page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        pointer-events: none;
+      }
+      .welcome-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+      .welcome-content h1 {
+        font-size: 3rem;
+        letter-spacing: 6px;
+        margin-bottom: 40px;
+      }
 
-/* Rectangle Welcome Button */
-.enter-btn{
-  width:240px;height:55px;border-radius:14px;border:none;
-  background:linear-gradient(135deg,#caa7ff,#6c4cff);
-  color:#fff;font-size:1.2rem;font-weight:600;letter-spacing:1px;
-  cursor:pointer;
-  box-shadow:0 0 30px rgba(200,160,255,.8);
-  animation:pulseGlow 3s infinite;
-}
+      /* Rectangle Welcome Button */
+      .enter-btn {
+        width: 240px;
+        height: 55px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(135deg, #caa7ff, #6c4cff);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 0 30px rgba(200, 160, 255, 0.8);
+        animation: pulseGlow 3s infinite;
+      }
 
-/* ================= LOGIN ================= */
-.login-page{
-  position:fixed;inset:0;display:none;
-  justify-content:center;align-items:center;
-}
-.login-page video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-}
-.login-page::after{
-  content:"";position:absolute;inset:0;
-  background:rgba(0,0,0,.5);pointer-events:none;
-}
-.login-card{
-  position:relative;z-index:2;
-  background:rgba(255,255,255,.25);
-  backdrop-filter:blur(15px);
-  padding:30px;width:300px;border-radius:20px;text-align:center;
-  animation:fadeUp 1.2s ease;
-}
-.login-card input,.login-card button{
-  width:100%;padding:10px;margin:8px 0;border-radius:8px;border:0;
-}
-.error{display:none;color:#ff6b6b}
+      /* ================= LOGIN ================= */
+      .login-page {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-page video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .login-page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+      }
+      .login-card {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        padding: 30px;
+        width: 300px;
+        border-radius: 20px;
+        text-align: center;
+        animation: fadeUp 1.2s ease;
+      }
+      .login-card input,
+      .login-card button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 0;
+      }
+      .error {
+        display: none;
+        color: #ff6b6b;
+      }
 
-/* ================= TRANSITION ================= */
-.transition{
-  position:fixed;inset:0;display:none;
-  justify-content:center;align-items:center;
-}
-.transition video{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-}
-.transition::after{
-  content:"";position:absolute;inset:0;
-  background:rgba(0,0,0,.6);pointer-events:none;
-}
-.transition-content{
-  position:relative;z-index:2;text-align:center;
-  animation:fadeUp 1.2s ease;
-}
-#startBtn{
-  margin-top:20px;padding:12px 30px;border-radius:25px;
-  border:none;cursor:pointer;
-  animation:pulseGlow 3s infinite;
-}
+      /* ================= TRANSITION ================= */
+      .transition {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .transition video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .transition::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        pointer-events: none;
+      }
+      .transition-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        animation: fadeUp 1.2s ease;
+      }
+      #startBtn {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border-radius: 25px;
+        border: none;
+        cursor: pointer;
+        animation: pulseGlow 3s infinite;
+      }
 
-/* ================= MAIN ================= */
-.main-page{display:none;min-height:100vh}
-.main-video{
-  position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
-}
-.main-page::after{
-  content:"";position:fixed;inset:0;
-  background:rgba(0,0,0,.55);z-index:-1;pointer-events:none;
-}
-.content{padding:50px 20px;text-align:center}
+      /* ================= MAIN ================= */
+      .main-page {
+        display: none;
+        min-height: 100vh;
+      }
+      .main-video {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+      }
+      .main-page::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: -1;
+        pointer-events: none;
+      }
+      .content {
+        padding: 50px 20px;
+        text-align: center;
+      }
 
-/* Invitation */
-.invitation-box{
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(15px);
-  padding:30px;border-radius:20px;margin-bottom:40px;
-  animation:fadeUp 1.2s ease;
-}
-.invitation-box img{
-  max-width:100%;border-radius:15px;margin-bottom:15px;
-  animation:floatImg 4s ease-in-out infinite;
-}
-.map-btn{
-  margin-top:10px;padding:10px 20px;border:none;border-radius:10px;
-  cursor:pointer;animation:pulseGlow 3s infinite;
-}
+      /* Invitation */
+      .invitation-box {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        padding: 30px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        animation: fadeUp 1.2s ease;
+      }
+      .invitation-box img {
+        max-width: 100%;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        animation: floatImg 4s ease-in-out infinite;
+      }
+      .map-btn {
+        margin-top: 10px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        animation: pulseGlow 3s infinite;
+      }
 
-/* Countdown */
-#timer{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
-.time-box{
-  width:100px;padding:15px;border-radius:15px;
-  background:rgba(255,255,255,.1);
-  animation:fadeUp 1s ease;
-}
-.time-box span{font-size:2rem;font-weight:700}
+      /* Countdown */
+      #timer {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .time-box {
+        width: 100px;
+        padding: 15px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        animation: fadeUp 1s ease;
+      }
+      .time-box span {
+        font-size: 2rem;
+        font-weight: 700;
+      }
 
-/* Contact */
-.contact-box{
-  margin-top:30px;
-  background:rgba(255,255,255,.12);
-  padding:20px;border-radius:15px;
-  animation:fadeUp 1.2s ease;
-}
-.contact-box a{color:#fff}
+      /* Contact */
+      .contact-box {
+        margin-top: 30px;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 20px;
+        border-radius: 15px;
+        animation: fadeUp 1.2s ease;
+      }
+      .contact-box a {
+        color: #fff;
+      }
 
-/* ================= ANIMATIONS ================= */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(30px)}
-  to{opacity:1;transform:translateY(0)}
-}
-@keyframes pulseGlow{
-  0%{box-shadow:0 0 15px rgba(200,160,255,.4)}
-  50%{box-shadow:0 0 40px rgba(200,160,255,1)}
-  100%{box-shadow:0 0 15px rgba(200,160,255,.4)}
-}
-@keyframes floatImg{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
-button:hover{transform:scale(1.08)}
-button:active{transform:scale(.95)}
-</style>
-</head>
+      /* ================= ANIMATIONS ================= */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 0 15px rgba(200, 160, 255, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 40px rgba(200, 160, 255, 1);
+        }
+        100% {
+          box-shadow: 0 0 15px rgba(200, 160, 255, 0.4);
+        }
+      }
+      @keyframes floatImg {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      button:hover {
+        transform: scale(1.08);
+      }
+      button:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
+    <audio id="globalMusic" src="music1.mp3" loop></audio>
 
-<audio id="globalMusic" src="music1.mp3" loop></audio>
-
-<!-- WELCOME -->
-<div class="welcome-page" id="welcomePage">
-  <video autoplay muted loop><source src="video4.mp4"></video>
-  <div class="welcome-content">
-    <h1>WELCOME XAVERIAN’S</h1>
-    <button class="enter-btn" onclick="enterSite()">ENTER EXPERIENCE</button>
-  </div>
-</div>
-
-<!-- LOGIN -->
-<div class="login-page" id="loginPage">
-  <video autoplay muted loop><source src="video1.mp4"></video>
-  <div class="login-card">
-    <h2>🔒 Memory Lock</h2>
-    <input id="username" placeholder="Name">
-    <input id="password" type="password" placeholder="Secret Code">
-    <button id="loginBtn">Unlock</button>
-    <div class="error" id="error">Access denied</div>
-  </div>
-</div>
-
-<!-- TRANSITION -->
-<div class="transition" id="transition">
-  <video autoplay muted loop><source src="video2.mp4"></video>
-  <div class="transition-content">
-    <h1 id="welcomeText"></h1>
-    <button id="startBtn">Start the Journey</button>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main-page" id="mainPage">
-  <video class="main-video" autoplay muted loop><source src="video3.mp4"></video>
-  <div class="content">
-
-    <div class="invitation-box">
-      <img src="invitation.jpg">
-      <p><strong>Date:</strong> 10 Jan 2026, 10:00 AM</p>
-      <p><strong>Location:</strong> Amar Resort, Motihari</p>
-      <button class="map-btn" onclick="openMap()">View Location</button>
+    <!-- WELCOME -->
+    <div class="welcome-page" id="welcomePage">
+      <video autoplay muted loop><source src="video4.mp4" /></video>
+      <div class="welcome-content">
+        <h1>WELCOME XAVERIAN’S</h1>
+        <button class="enter-btn" onclick="enterSite()">
+          ENTER EXPERIENCE
+        </button>
+      </div>
     </div>
 
-    <h2>⏳ Farewell Begins In</h2>
-    <div id="timer"></div>
-
-    <div class="contact-box">
-      <h2>For any queries:</h2>
-      <a href="mailto:yshivamkumar212@gmail.com">yshivamkumar212@gmail.com</a>
+    <!-- LOGIN -->
+    <div class="login-page" id="loginPage">
+      <video autoplay muted loop><source src="video1.mp4" /></video>
+      <div class="login-card">
+        <h2>🔒 Memory Lock</h2>
+        <input id="username" placeholder="Name" />
+        <input id="password" type="password" placeholder="Secret Code" />
+        <button id="loginBtn">Unlock</button>
+        <div class="error" id="error">Access denied</div>
+      </div>
     </div>
 
-  </div>
-</div>
+    <!-- TRANSITION -->
+    <div class="transition" id="transition">
+      <video autoplay muted loop><source src="video2.mp4" /></video>
+      <div class="transition-content">
+        <h1 id="welcomeText"></h1>
+        <button id="startBtn">Start the Journey</button>
+      </div>
+    </div>
 
-<script>
-const users=["shivam","ayush mehta","pranjal","shreyansh","kunj", "Sahil"];
-const pass="lencho";
-const music=document.getElementById("globalMusic");
+    <!-- MAIN -->
+    <div class="main-page" id="mainPage">
+      <video class="main-video" autoplay muted loop>
+        <source src="video3.mp4" />
+      </video>
+      <div class="content">
+        <div class="invitation-box">
+          <img src="invitation.jpg" />
+          <p><strong>Date:</strong> 10 Jan 2026, 10:00 AM</p>
+          <p><strong>Location:</strong> Amar Resort, Motihari</p>
+          <button class="map-btn" onclick="openMap()">View Location</button>
+        </div>
 
-function enterSite(){
-  music.play().catch(()=>{});
-  welcomePage.style.display="none";
-  loginPage.style.display="flex";
-}
+        <h2>⏳ Farewell Begins In</h2>
+        <div id="timer"></div>
 
-loginBtn.onclick=()=>{
-  const u=username.value.toLowerCase().trim();
-  if(users.includes(u)&&password.value===pass){
-    loginPage.style.display="none";
-    transition.style.display="flex";
-    welcomeText.innerText="Welcome "+username.value;
-  }else error.style.display="block";
-};
+        <div class="contact-box">
+          <h2>For any queries:</h2>
+          <a href="mailto:yshivamkumar212@gmail.com"
+            >yshivamkumar212@gmail.com</a
+          >
+        </div>
+      </div>
+    </div>
 
-startBtn.onclick=()=>{
-  transition.style.display="none";
-  mainPage.style.display="block";
-  fadeMusic();
-  confetti();
-  startCountdown();
-};
+    <script>
+      const users = [
+        "shivam",
+        "ayush mehta",
+        "pranjal",
+        "shreyansh",
+        "kunj",
+        "sahil",
+      ];
+      const pass = "lencho";
+      const music = document.getElementById("globalMusic");
 
-function openMap(){
-  window.open("https://www.google.com/maps/search/?api=1&query=Amar+Resort+Motihari","_blank");
-}
+      function enterSite() {
+        music.play().catch(() => {});
+        welcomePage.style.display = "none";
+        loginPage.style.display = "flex";
+      }
 
-function startCountdown(){
-  const target=new Date("Jan 10, 2026 10:00").getTime();
-  setInterval(()=>{
-    const d=target-Date.now();
-    timer.innerHTML=`
-    <div class="time-box"><span>${Math.max(0,Math.floor(d/86400000))}</span><small>DAYS</small></div>
-    <div class="time-box"><span>${Math.max(0,Math.floor(d/3600000)%24)}</span><small>HRS</small></div>
-    <div class="time-box"><span>${Math.max(0,Math.floor(d/60000)%60)}</span><small>MIN</small></div>
-    <div class="time-box"><span>${Math.max(0,Math.floor(d/1000)%60)}</span><small>SEC</small></div>`;
-  },1000);
-}
+      loginBtn.onclick = () => {
+        const u = username.value.toLowerCase().trim();
+        if (users.includes(u) && password.value === pass) {
+          loginPage.style.display = "none";
+          transition.style.display = "flex";
+          welcomeText.innerText = "Welcome " + username.value;
+        } else error.style.display = "block";
+      };
 
-/* Music Fade */
-function fadeMusic(){
-  let v=0;music.volume=0;
-  const i=setInterval(()=>{
-    if(v>=0.6) clearInterval(i);
-    music.volume=v+=0.05;
-  },200);
-}
+      startBtn.onclick = () => {
+        transition.style.display = "none";
+        mainPage.style.display = "block";
+        fadeMusic();
+        confetti();
+        startCountdown();
+      };
 
-/* Confetti */
-function confetti(){
-  for(let i=0;i<40;i++){
-    const c=document.createElement("div");
-    c.style.cssText=`
-      position:fixed;top:-20px;left:${Math.random()*100}vw;
+      function openMap() {
+        window.open(
+          "https://www.google.com/maps/search/?api=1&query=Amar+Resort+Motihari",
+          "_blank"
+        );
+      }
+
+      function startCountdown() {
+        const target = new Date("Jan 10, 2026 10:00").getTime();
+        setInterval(() => {
+          const d = target - Date.now();
+          timer.innerHTML = `
+    <div class="time-box"><span>${Math.max(
+      0,
+      Math.floor(d / 86400000)
+    )}</span><small>DAYS</small></div>
+    <div class="time-box"><span>${Math.max(
+      0,
+      Math.floor(d / 3600000) % 24
+    )}</span><small>HRS</small></div>
+    <div class="time-box"><span>${Math.max(
+      0,
+      Math.floor(d / 60000) % 60
+    )}</span><small>MIN</small></div>
+    <div class="time-box"><span>${Math.max(
+      0,
+      Math.floor(d / 1000) % 60
+    )}</span><small>SEC</small></div>`;
+        }, 1000);
+      }
+
+      /* Music Fade */
+      function fadeMusic() {
+        let v = 0;
+        music.volume = 0;
+        const i = setInterval(() => {
+          if (v >= 0.6) clearInterval(i);
+          music.volume = v += 0.05;
+        }, 200);
+      }
+
+      /* Confetti */
+      function confetti() {
+        for (let i = 0; i < 40; i++) {
+          const c = document.createElement("div");
+          c.style.cssText = `
+      position:fixed;top:-20px;left:${Math.random() * 100}vw;
       width:8px;height:8px;
-      background:hsl(${Math.random()*360},100%,70%);
-      animation:fall ${2+Math.random()*2}s linear;
+      background:hsl(${Math.random() * 360},100%,70%);
+      animation:fall ${2 + Math.random() * 2}s linear;
       z-index:9999`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  }
-}
-const s=document.createElement("style");
-s.innerHTML=`@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}`;
-document.head.appendChild(s);
-</script>
-
-</body>
+          document.body.appendChild(c);
+          setTimeout(() => c.remove(), 4000);
+        }
+      }
+      const s = document.createElement("style");
+      s.innerHTML = `@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}`;
+      document.head.appendChild(s);
+    </script>
+  </body>
 </html>
