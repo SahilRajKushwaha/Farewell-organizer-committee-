@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farewell Memory Wall</title>
+    <!-- Using same font family as index.html for consistency, plus a nice display font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Segoe+UI&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a29bfe;
+            --secondary: #6c5ce7;
+            --accent: #fd79a8;
+            --bg-dark: #000000;
+            --glass-bg: rgba(255, 255, 255, 0.07);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #b2bec3;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* STUNNING ANIMATED BACKGROUND */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e, #000);
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 { width: 400px; height: 400px; background: #6c5ce7; top: -100px; left: -100px; animation-delay: 0s; }
+        .orb-2 { width: 500px; height: 500px; background: #fd79a8; bottom: -100px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: #0984e3; top: 40%; left: 40%; animation-delay: -10s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, 50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Overlay texture */
+        .bg-animation::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+
+
+        header {
+            text-align: center;
+            padding: 80px 20px 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #fff, #a29bfe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* GLASSMORPHISM FORM */
+        .upload-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto 80px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.2);
+        }
+
+        /* File Input Styling */
+        input[type="file"] {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed var(--glass-border);
+            border-radius: 12px;
+            padding: 10px;
+            width: 100%;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        
+        button.upload-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 16px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            margin-top: 10px;
+        }
+
+        button.upload-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.6);
+        }
+        
+        button.upload-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #444;
+        }
+
+        /* GRID */
+        .memory-wall {
+            columns: 4 250px;
+            gap: 20px;
+        }
+
+        .memory-card {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.8s ease backwards;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .card-image {
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .memory-text {
+            color: #ddd;
+            font-size: 0.95rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Loader */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        .hidden { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .memory-wall { columns: 2 200px; }
+            .upload-section { padding: 25px; margin-bottom: 50px; }
+        }
+        @media (max-width: 480px) {
+            .memory-wall { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Elements -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <header>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        <h1>Memories We’ll Never Forget 💫</h1>
+        <p class="subtitle">A timeless collection of our journey</p>
+    </header>
+
+    <div class="container">
+        <!-- Upload Form -->
+        <div class="upload-section">
+            <h2 style="margin-bottom: 25px; color: #fff; font-weight: 400; text-align: center;">Leave a Memory</h2>
+            
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="studentName" placeholder="Enter your name">
+            </div>
+            
+            <div class="form-group">
+                <label>Memory / Caption</label>
+                <textarea id="memoryText" rows="3" placeholder="Share a special moment..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Upload Photo</label>
+                <input type="file" id="imageFile" accept="image/*">
+            </div>
+
+            <button class="upload-btn" id="uploadBtn" onclick="uploadMemory()">
+                <div id="loader" class="hidden"><span class="spinner"></span> Uploading...</div>
+                <span id="btnText">Post Memory</span>
+            </button>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="memory-wall" id="memoryWall">
+            <!-- Example Card -->
+            <div class="memory-card">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Friends" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">Class of 2024</h3>
+                    <p class="memory-text">"Friendship is the only cement that will ever hold the world together."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================= CONFIGURATION =================
+        const CLOUD_NAME = 'dj8igz7kg'; 
+        const UPLOAD_PRESET = 'Upload'; 
+        const TAG = 'farewell_memory_v1'; // Tag to group all images
+        // =================================================
+
+        const memoryWall = document.getElementById('memoryWall');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const btnText = document.getElementById('btnText');
+        const loader = document.getElementById('loader');
+
+        // Allow user to upload
+        async function uploadMemory() {
+            const nameInput = document.getElementById('studentName');
+            const memoryInput = document.getElementById('memoryText');
+            const fileInput = document.getElementById('imageFile');
+
+            const name = nameInput.value.trim();
+            const memory = memoryInput.value.trim();
+            const file = fileInput.files[0];
+
+            if (!name || !memory || !file) {
+                alert("Please complete all fields!");
+                return;
+            }
+
+            // Encode metadata into the filename (Public ID)
+            // Format: mem_WALL_[Base64EncodedData]
+            // We use URL-safe Base64 replacements
+            const metadata = JSON.stringify({ n: name, c: memory });
+            const encodedData = btoa(metadata).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            const publicId = `mem_${Date.now()}_${encodedData}`;
+
+            setLoading(true);
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', UPLOAD_PRESET);
+            formData.append('public_id', publicId); 
+            formData.append('tags', TAG); // Essential for listing later
+
+            try {
+                const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.secure_url) {
+                    // Instantly add to wall without reload
+                    addCardToWall(data.secure_url, name, memory);
+                    
+                    // Clear form
+                    nameInput.value = '';
+                    memoryInput.value = '';
+                    fileInput.value = '';
+                } else {
+                    console.error(data);
+                    alert("Upload failed. Please check your Cloudinary configuration.");
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error uploading image.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Fetch all memories on load
+        async function loadMemories() {
+            try {
+                // Fetch the list of resources with the tag
+                const response = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${TAG}.json`);
+                
+                if (!response.ok) {
+                    if(response.status === 404) {
+                        console.log("No memories found yet or Resource List not enabled.");
+                        return; // It's okay if no images yet
+                    }
+                    throw new Error("Could not fetch memory list. Check if 'Resource list' is enabled in Cloudinary Security Settings.");
+                }
+
+                const data = await response.json();
+                
+                // Clear current (placeholder) content
+                memoryWall.innerHTML = '';
+
+                // Sort by time (newest first) - implicitly by created_at or public_id timestamp
+                // The list usually returns oldest first, so we reverse
+                const resources = data.resources.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+                resources.forEach(res => {
+                    const imageUrl = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/v${res.version}/${res.public_id}.${res.format}`;
+                    
+                    // Decode metadata from public_id
+                    let name = "Student";
+                    let caption = "A beautiful memory...";
+                    
+                    try {
+                        const parts = res.public_id.split('_');
+                        // Expecting: mem_TIMESTAMP_ENCODEDstring
+                        // But Cloudinary might store it in a folder? We should handle that.
+                        // We look for the last part which should be our encoded string? 
+                        // Actually our format is strict: mem_{timestamp}_{encoded}
+                        
+                        if (parts.length >= 3) {
+                            const encoded = parts.slice(2).join('_'); // Rejoin rest in case of splits
+                            // Restore Base64 standard
+                            const base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+                            const decoded = JSON.parse(atob(base64));
+                            if(decoded.n) name = decoded.n;
+                            if(decoded.c) caption = decoded.c;
+                        }
+                    } catch (e) {
+                        console.warn("Could not decode metadata for", res.public_id);
+                    }
+
+                    addCardToWall(imageUrl, name, caption);
+                });
+
+            } catch (err) {
+                console.error(err);
+                // Don't alert on load to avoid annoying user if just setting up, but log it
+                const errorMsg = document.createElement('div');
+                errorMsg.style.color = '#fff';
+                errorMsg.style.textAlign = 'center';
+                errorMsg.style.gridColumn = '1/-1';
+                errorMsg.innerHTML = `<p>⚠️ To see everyone's photos, enable <strong>"Resource list"</strong> in your Cloudinary Settings (Security -> Restricted media types -> Uncheck Resource list).</p>`;
+                memoryWall.prepend(errorMsg);
+            }
+        }
+
+        function addCardToWall(url, name, text) {
+            const card = document.createElement('div');
+            card.className = 'memory-card';
+            card.innerHTML = `
+                <img src="${url}" class="card-image" loading="lazy">
+                <div class="card-content">
+                    <h3 class="student-name">${escapeHtml(name)}</h3>
+                    <p class="memory-text">"${escapeHtml(text)}"</p>
+                </div>
+            `;
+            // Append instead of prepend if loading from history? 
+            // Actually our UI expects prepend for 'new' uploads, but 'append' for history?
+            // If we clear list on load, simple append works.
+            memoryWall.appendChild(card); 
+        }
+
+        function setLoading(state) {
+            if (state) {
+                uploadBtn.disabled = true;
+                btnText.classList.add('hidden');
+                loader.classList.remove('hidden');
+            } else {
+                uploadBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize
+        window.onload = loadMemories;
+    </script>
+</body>
+</html>
