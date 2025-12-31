@@ -214,6 +214,78 @@
       Your browser does not support HTML5 video.
     </video>
 
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+        🔇
+    </button>
+    <style>
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .music-btn:hover {
+            background: rgba(251, 191, 36, 0.9);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+        .music-btn.playing {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            animation: pulse-music 2s ease-in-out infinite;
+        }
+        @keyframes pulse-music {
+            0%, 100% { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.8); }
+        }
+        @media (max-width: 480px) {
+            .music-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.textContent = '🔇';
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play();
+                musicBtn.textContent = '🔊';
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+
     <div class="info-section">
       <div class="invitation-box">
         <img src="invitation.jpg" alt="Farewell Invitation Card" />

@@ -46,7 +46,7 @@
 
         /* Minimal Header */
         header {
-            padding: 40px 20px;
+            padding: 15px 20px;
             text-align: center;
             animation: fadeIn 1s ease;
         }
@@ -140,6 +140,45 @@
             transform: translateY(0);
         }
 
+        /* Delete Button */
+        .delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            z-index: 10;
+        }
+
+        .memory-card:hover .delete-btn {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: scale(1.15) !important;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+        }
+
+        .delete-btn:active {
+            transform: scale(0.95) !important;
+        }
+
         .expires-in {
             font-size: 0.7rem;
             color: #d1d5db;
@@ -148,123 +187,20 @@
             gap: 5px;
         }
 
-        /* Floating Action Button */
-        .fab {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #fff;
-            color: #000;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-        }
-
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(255, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 10;
-        }
-
-        .memory-card:hover .delete-btn {
-            opacity: 1;
-        }
-
-        .delete-btn:hover {
-            background: rgba(255, 0, 0, 1);
-            transform: scale(1.1);
-        }
-
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-        }
-        
-        .home-fab {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            z-index: 100;
-            text-decoration: none;
-        }
-        
-        .home-fab:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.05);
-        }
-
-        .invitation-fab {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #000;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-            text-decoration: none;
-        }
-
-        .invitation-fab:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-        }
+        /* FAB styles removed */
 
         /* Modal */
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .modal.active {
@@ -273,79 +209,163 @@
         }
 
         .modal-card {
-            background: #0a0a0a;
-            border: 1px solid var(--glass-border);
+            background: linear-gradient(145deg, #0f0f0f 0%, #1a1a1a 50%, #0a0a0a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             width: 90%;
             max-width: 450px;
             padding: 40px;
-            border-radius: 24px;
+            border-radius: 28px;
             text-align: center;
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
         }
 
         .modal.active .modal-card {
-            transform: scale(1);
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .upload-area {
-            border: 2px dashed var(--glass-border);
-            border-radius: 16px;
-            padding: 40px 20px;
-            margin: 20px 0;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 45px 20px;
+            margin: 25px 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
+            border-radius: 22px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
         }
 
         .upload-area:hover {
-            border-color: #fff;
-            background: rgba(255,255,255,0.02);
+            border-color: transparent;
+            background: rgba(251, 191, 36, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .upload-area:hover::before {
+            opacity: 0.3;
+            animation: pulse-border 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
         }
 
         input, textarea {
             width: 100%;
             background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            padding: 12px 16px;
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 18px;
+            border-radius: 14px;
             color: #fff;
             margin-bottom: 15px;
             font-family: inherit;
+            font-size: 0.95rem;
             outline: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
 
         input:focus, textarea:focus {
-            border-color: #fff;
-            background: rgba(255,255,255,0.1);
+            border-color: #fbbf24;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
         }
 
         .btn-primary {
-            background: #fff;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             color: #000;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 30px;
             border-radius: 50px;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
         }
 
         .btn-primary:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
         }
         
         .btn-text {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            margin-top: 15px;
+            margin-top: 18px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            padding: 8px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
         }
         
-        .btn-text:hover { color: #fff; }
+        .btn-text:hover { 
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
 
         /* Loader */
         .spinner {
@@ -363,94 +383,351 @@
         .lightbox {
             position: fixed;
             inset: 0;
-            background: black;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(30px) saturate(180%);
             z-index: 2000;
             display: none;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s ease;
+            animation: lightboxFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes lightboxFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .lightbox img {
-            max-width: 95%;
-            max-height: 95vh;
+            max-width: 90%;
+            max-height: 85vh;
             object-fit: contain;
-            box-shadow: 0 0 50px rgba(255,255,255,0.1);
+            border-radius: 16px;
+            box-shadow: 
+                0 25px 80px -20px rgba(0, 0, 0, 0.8),
+                0 0 100px rgba(255, 255, 255, 0.05);
+            animation: lightboxImageIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes lightboxImageIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         
         .close-lightbox {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 25px;
+            right: 25px;
             color: white;
-            font-size: 2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            background: transparent;
-            border: none;
-            opacity: 0.7;
-            transition: 0.2s;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            opacity: 0.8;
+            transition: all 0.3s ease;
         }
         
-        .close-lightbox:hover { opacity: 1; }
+        .close-lightbox:hover { 
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
 
         .lightbox-details {
             position: absolute;
-            bottom: 30px;
+            bottom: 0;
             left: 0;
             width: 100%;
             text-align: center;
             color: #fff;
             pointer-events: none;
-            padding: 0 20px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            padding: 40px 20px 35px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
         }
 
         .lightbox-nav {
             position: absolute;
-            right: 20px;
+            right: 25px;
             background: rgba(255, 255, 255, 0.1);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             padding: 15px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             z-index: 2001;
             width: 50px;
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0.8;
         }
 
         .lightbox-nav:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+            opacity: 1;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .nav-up { top: 40%; transform: translateY(-50%); }
-        .nav-up:hover { transform: translateY(-50%) scale(1.1); }
+        .nav-up { 
+            top: 40%; 
+            transform: translateY(-50%); 
+        }
+        .nav-up:hover { 
+            transform: translateY(-50%) translateY(-3px); 
+        }
         
-        .nav-down { top: 60%; transform: translateY(-50%); }
-        .nav-down:hover { transform: translateY(-50%) scale(1.1); }
+        .nav-down { 
+            top: 60%; 
+            transform: translateY(-50%); 
+        }
+        .nav-down:hover { 
+            transform: translateY(-50%) translateY(3px); 
+        }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* Navbar Reference Style */
+        .glass-nav {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: auto;
+            z-index: 1000;
+            background: #0f172a; /* Deep Blue/Slate from image */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px; /* More rounded */
+            padding: 8px 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            height: 100%;
+        }
+
+        /* Nav Buttons */
+        .nav-btn {
+            background: rgba(255,255,255,0.05); /* Slight circle bg */
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .nav-btn:hover { 
+            background: rgba(255, 255, 255, 0.15); 
+            transform: translateY(-2px);
+        }
+
+        /* Yellow Upload Button */
+        .upload-btn-nav {
+            background: #fbbf24; /* Warm Yellow/Gold */
+            color: #000 !important;
+            width: 45px; /* Match other buttons */
+            height: 45px;
+            font-size: 1.5rem; /* Match other buttons */
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); /* Glow */
+            margin: 0 5px;
+        }
+        
+        .upload-btn-nav:hover {
+            background: #f59e0b;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Search Bar - Expandable */
+        .search-container {
+            position: relative;
+            height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 45px; /* Collapsed size (button-like) */
+            height: 45px;
+            background: rgba(0, 0, 0, 0.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.8)'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' /%3E%3C/svg%3E") no-repeat center;
+            background-size: 24px; /* Increased to match 1.5rem icons */
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50px;
+            padding: 0;
+            margin-bottom: 0; /* Override default input margin for vertical alignment */
+            color: transparent;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-input:hover,
+        .search-input:focus {
+            width: 150px; /* Expanded to ~75% of original 200px */
+            background-position: 12px center;
+            padding: 0 15px 0 40px; /* Text padding */
+            color: rgba(255,255,255,0.9);
+            background-color: rgba(0, 0, 0, 0.6);
+            border-color: rgba(255,255,255,0.3);
+            cursor: text;
+        }
+        
+        .search-input::placeholder { color: transparent; }
+        .search-input:hover::placeholder, 
+        .search-input:focus::placeholder { color: rgba(255,255,255,0.4); }
+
+        /* Invitation Button */
+        .invite-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #fbbf24; /* Yellow */
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
+            border-radius: 30px;
+            color: #000; /* Black Text */
+            text-decoration: none;
+            border: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .invite-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+        }
+
+        header { padding-top: 60px; margin-top: 0; }
+
         @media (max-width: 600px) {
             .gallery-container { columns: 1; }
             h1 { font-size: 2rem; }
-            .fab { bottom: 20px; right: 20px; width: 50px; height: 50px; }
-            .home-fab { bottom: 20px; left: 20px; width: 40px; height: 40px; }
+            .glass-nav { 
+                bottom: 20px; 
+                right: 50%;
+                transform: translateX(50%);
+                padding: 5px 10px;
+            }
+            .search-input { width: 140px; }
+            .search-input:focus { width: 160px; }
+            .upload-btn-nav { width: 45px; height: 45px; font-size: 1.4rem; }
+            .nav-btn { width: 38px; height: 38px; font-size: 1.2rem; }
+            
+            .invite-btn {
+                top: 15px;
+                right: 15px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
         }
+
     </style>
 </head>
 <body>
 
     <div class="ambient-bg"></div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+        🔇
+    </button>
+    <style>
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .music-btn:hover {
+            background: rgba(251, 191, 36, 0.9);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+        .music-btn.playing {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            animation: pulse-music 2s ease-in-out infinite;
+        }
+        @keyframes pulse-music {
+            0%, 100% { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.8); }
+        }
+        @media (max-width: 600px) {
+            .music-btn {
+                top: 15px;
+                left: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.textContent = '🔇';
+                musicBtn.classList.remove('playing');
+            } else {
+                bgMusic.play();
+                musicBtn.textContent = '🔊';
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
 
     <header>
         <h1>Fleeting Moments</h1>
@@ -462,20 +739,47 @@
         <!-- Images injected here -->
     </div>
     
-    <!-- Home Button -->
-    <a href="index.html" class="home-fab" title="Back to Home">
-        ←
+    <!-- Invitation Button -->
+    <a href="invitation.html" class="invite-btn" title="View Invitation Card">
+        Invitation Card 📩
     </a>
 
-    <!-- Invitation Button (Top Right) -->
-    <a href="invitation.html" class="invitation-fab" title="View Invitation">
-        📩
-    </a>
+    <!-- Navbar -->
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-btn" title="Back to Home">
+                🏠
+            </a>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" id="navSearch" placeholder="Search memories...">
+                <!-- No independent icon needed if we want the 'inset' look, or we can keep it for decoration -->
+            </div>
 
-    <!-- Upload Button -->
-    <button class="fab" onclick="openModal()">
-        +
-    </button>
+            <button class="nav-btn upload-btn-nav" onclick="openModal()" title="Upload Memory">
+                ➕
+            </button>
+            
+            <button class="nav-btn" onclick="openAdminModal()" title="Admin Login">
+                🔐
+            </button>
+        </div>
+    </nav>
+
+    <div class="modal" id="adminModal">
+        <div class="modal-card">
+            <h2 style="margin-bottom: 20px;">Admin Access</h2>
+            <div id="adminLoginView">
+                <input type="password" id="adminPass" placeholder="Enter admin passcode" />
+                <button class="btn-primary" onclick="checkAdminLogin()">Login</button>
+            </div>
+            <div id="adminLogoutView" style="display: none;">
+                <p style="color: #4ade80; margin-bottom: 20px;">✓ You are logged in as Admin</p>
+                <button class="btn-primary" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);" onclick="adminLogout()">Logout</button>
+            </div>
+            <button class="btn-text" onclick="closeAdminModal()">Cancel</button>
+        </div>
+    </div>
 
     <!-- Upload Modal -->
     <div class="modal" id="uploadModal">
@@ -496,8 +800,9 @@
                 <div class="spinner" id="spinner"></div>
             </button>   
             <button class="btn-text" onclick="closeModal()">Cancel</button>
-            <div style="margin-top: 15px; font-weight:600; font-size: 0.75rem; color: #525252;">
+            <div style="margin-top: 15px; font-weight:300; font-size: 0.7rem; color: #525252;">
                 Share your favorite moments.<br><br>
+                Note: Photos uploaded will appear under 1 minute of upload.<br>
                 Note: If you want to delete an image, contact admins:<br>
                 Sahil: <a href="mailto:sahilrajkedar2801@gmail.com" style="color:inherit; font-weight:bold;">sahilrajkedar2801@gmail.com</a><br>
                 Shivam: <a href="mailto:yshivamkumar212@gmail.com" style="color:inherit; font-weight:bold;">yshivamkumar212@gmail.com</a>
@@ -548,16 +853,33 @@
 
         // --- CORE LOGIC ---
 
+        let isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+        // --- CORE LOGIC ---
+
+        // Init Search
+        document.getElementById('navSearch').addEventListener('input', (e) => {
+            filterMemories(e.target.value);
+        });
+
+        function filterMemories(query) {
+            if (!query) {
+                renderGallery(memories);
+                return;
+            }
+            const q = query.toLowerCase();
+            const filtered = memories.filter(m => 
+                m.owner.toLowerCase().includes(q) || 
+                m.caption.toLowerCase().includes(q)
+            );
+            renderGallery(filtered);
+        }
+
         async function loadMemories() {
             try {
                 const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${TAG}.json`);
                 if (!res.ok) throw new Error("No images found");
                 const data = await res.json();
-                
-                const gallery = document.getElementById('gallery');
-                gallery.innerHTML = '';
-                
-                let count = 0;
                 
                 // Process and Sort
                 const validPhotos = data.resources.map(img => {
@@ -567,8 +889,6 @@
                     
                     const timestamp = parseInt(parts[1]);
                     if (isNaN(timestamp)) return null;
-
-
 
                     // Decode Metadata
                     let caption = "";
@@ -585,6 +905,7 @@
                         src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto,w_800/${img.public_id}.jpg`,
                         fullSrc: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${img.public_id}.jpg`,
                         timestamp,
+                        public_id: img.public_id, // Ensure public_id is passed
                         owner,
                         caption
                     };
@@ -594,7 +915,7 @@
                 const pinnedNote = {
                     src: 'note.jpg',
                     fullSrc: 'note.jpg',
-                    timestamp: Date.now(), // Always "fresh" or set a static date
+                    timestamp: Date.now(), // Always "fresh"
                     owner: 'Admin',
                     caption: 'A special note for everyone.',
                     public_id: 'pinned_note' // Special ID
@@ -603,33 +924,14 @@
                 // Prepend
                 validPhotos.unshift(pinnedNote);
 
-                memories = validPhotos; // Store globally
+                // Filter out hidden images (deleted by admin)
+                const hiddenImages = JSON.parse(localStorage.getItem('hidden_images') || '[]');
+                const visiblePhotos = validPhotos.filter(photo => !hiddenImages.includes(photo.public_id));
 
-                document.getElementById('photoCount').textContent = validPhotos.length;
-
-                validPhotos.forEach((photo, index) => {
-                    const el = document.createElement('div');
-                    el.className = 'memory-card';
-                    el.style.animationDelay = `${index * 0.1}s`;
-                    el.onclick = () => showLightbox(index);
-                    
-                    el.innerHTML = `
-                        <img src="${photo.src}" alt="${photo.caption}" loading="lazy">
-                        ${isOwner(photo.public_id) ? `<button class="delete-btn" onclick="deleteMemory(event, '${photo.public_id}')">&times;</button>` : ''}
-                        <div class="card-meta">
-                            <div style="font-weight:600; font-size:1rem; margin-bottom:4px;">${photo.owner}</div>
-                            <div style="font-size:0.85rem; opacity:0.9; margin-bottom:8px;">${photo.caption}</div>
-                        </div>
-                    `;
-                    gallery.appendChild(el);
-                    count++;
-                });
+                memories = visiblePhotos; // Store globally
+                document.getElementById('photoCount').textContent = visiblePhotos.length;
                 
-                if(count === 0) {
-                    gallery.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:50px; color:var(--text-muted);">
-                        No active stories right now. <br>Be the first to share!
-                    </div>`;
-                }
+                renderGallery(memories);
 
             } catch (err) {
                 console.warn(err);
@@ -637,6 +939,36 @@
                         Start the feed by adding a memory.
                     </div>`;
             }
+        }
+        
+        function renderGallery(items) {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            if(items.length === 0) {
+                gallery.innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:50px; color:var(--text-muted);">
+                    No matches found.
+                </div>`;
+                return;
+            }
+
+            items.forEach((photo, index) => {
+                const globalIndex = memories.indexOf(photo); // Use global index for lightbox
+                const el = document.createElement('div');
+                el.className = 'memory-card';
+                el.style.animationDelay = `${index * 0.05}s`; // Faster stagger
+                el.onclick = () => showLightbox(globalIndex);
+                
+                el.innerHTML = `
+                    <img src="${photo.src}" alt="${photo.caption}" loading="lazy">
+                    ${isAdmin ? `<button class="delete-btn" onclick="deleteMemory(event, '${photo.public_id}')">&times;</button>` : ''}
+                    <div class="card-meta">
+                        <div style="font-weight:600; font-size:1rem; margin-bottom:4px;">${photo.owner}</div>
+                        <div style="font-size:0.85rem; opacity:0.9; margin-bottom:8px;">${photo.caption}</div>
+                    </div>
+                `;
+                gallery.appendChild(el);
+            });
         }
 
         async function uploadPhoto() {
@@ -707,15 +1039,45 @@
         // --- UI FUNCS ---
 
         function openModal() {
-            const m = document.getElementById('uploadModal');
-            m.classList.add('active');
+            document.getElementById('uploadModal').classList.add('active');
         }
 
         function closeModal() {
-            const m = document.getElementById('uploadModal');
-            m.classList.remove('active');
+            document.getElementById('uploadModal').classList.remove('active');
         }
         
+        // Admin
+        function openAdminModal() {
+            // Show correct view based on login state
+            document.getElementById('adminLoginView').style.display = isAdmin ? 'none' : 'block';
+            document.getElementById('adminLogoutView').style.display = isAdmin ? 'block' : 'none';
+            document.getElementById('adminModal').classList.add('active');
+        }
+         function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('active');
+        }
+
+        function checkAdminLogin() {
+            const pass = document.getElementById('adminPass').value;
+            if(pass === 'winden10') {
+                localStorage.setItem('isAdmin', 'true');
+                isAdmin = true;
+                closeAdminModal();
+                renderGallery(memories); // Re-render to show delete buttons
+                alert('Admin access granted.');
+            } else {
+                alert('Incorrect passcode.');
+            }
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('isAdmin');
+            isAdmin = false;
+            closeAdminModal();
+            renderGallery(memories); // Re-render to hide buttons
+            alert('Logged out.');
+        }
+
         function handleFileSelect(input) {
             if(input.files && input.files[0]) {
                 document.getElementById('fileName').textContent = input.files[0].name;
@@ -771,20 +1133,22 @@
         }
 
         function isOwner(publicId) {
+            if (isAdmin) return true;
             const myUploads = JSON.parse(localStorage.getItem('my_uploads') || '{}');
             return !!myUploads[publicId];
         }
 
         async function deleteMemory(e, publicId) {
             e.stopPropagation(); // Prevent lightbox open
+            e.preventDefault();
             
             if(!confirm("Are you sure you want to delete this memory?")) return;
 
             const myUploads = JSON.parse(localStorage.getItem('my_uploads') || '{}');
             const record = myUploads[publicId];
             
+            // Try server delete if we have a token
             if (record && record.token) {
-                // Try Server Delete (works only for 10 mins after upload for unsigned)
                 try {
                     const formData = new FormData();
                     formData.append('token', record.token);
@@ -792,19 +1156,34 @@
                         method: 'POST',
                         body: formData
                     });
-                } catch(err) { console.error("Delete error", err); }
+                    console.log("Server delete attempted for:", publicId);
+                } catch(err) { 
+                    console.error("Server delete error:", err); 
+                }
             }
 
-            // Local Hide (Immediate Effect)
-            // We can also filter it out from display if we want to be persistent about "hidden" status 
-            // even if server delete failed (e.g. after 10 mins).
-            // For now, removing from UI and LocalStorage
+            // Remove from my_uploads if exists
+            if (record) {
+                delete myUploads[publicId];
+                localStorage.setItem('my_uploads', JSON.stringify(myUploads));
+            }
             
-            delete myUploads[publicId];
-            localStorage.setItem('my_uploads', JSON.stringify(myUploads));
+            // For admin: Store hidden images in localStorage so they stay hidden
+            let hiddenImages = JSON.parse(localStorage.getItem('hidden_images') || '[]');
+            if (!hiddenImages.includes(publicId)) {
+                hiddenImages.push(publicId);
+                localStorage.setItem('hidden_images', JSON.stringify(hiddenImages));
+            }
             
-            // Re-render (or just remove element for smoother UX, but re-render is safer for grid)
-            loadMemories();
+            // Remove from memories array immediately for smooth UX
+            const index = memories.findIndex(m => m.public_id === publicId);
+            if (index > -1) {
+                memories.splice(index, 1);
+                document.getElementById('photoCount').textContent = memories.length;
+            }
+            
+            // Re-render gallery
+            renderGallery(memories);
         }
 
         // Init
