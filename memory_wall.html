@@ -140,6 +140,25 @@
             transform: translateY(0);
         }
 
+        /* Pinned Badge */
+        .pinned-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(251, 191, 36, 0.9); /* Yellowish/Gold */
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(5px);
+        }
+
         /* Delete Button */
         .delete-btn {
             position: absolute;
@@ -663,8 +682,8 @@
     </audio>
 
     <!-- Music Toggle Button -->
-    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
-        🔇
+    <button class="music-btn playing" id="musicBtn" onclick="toggleMusic()" title="Toggle Music">
+        �
     </button>
     <style>
         .music-btn {
@@ -713,7 +732,7 @@
  <script>
 const bgMusic = document.getElementById('bgMusic');
 const musicBtn = document.getElementById('musicBtn');
-let isPlaying = false;
+let isPlaying = true; // Assume playing initially since we set it in HTML
 
 // Try autoplay on load
 window.addEventListener('load', () => {
@@ -729,6 +748,7 @@ window.addEventListener('load', () => {
       // Autoplay blocked — wait for user interaction
       isPlaying = false;
       musicBtn.textContent = '🔇';
+      musicBtn.classList.remove('playing');
 
       const unlock = () => {
         bgMusic.play().then(() => {
@@ -837,6 +857,19 @@ function toggleMusic() {
             </div>
         </div>
     </div>
+
+    <!-- Warning Modal (Date Restriction) -->
+    <div class="modal" id="warningModal">
+        <div class="modal-card" style="max-width: 400px; text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">⏳</div>
+            <h2 style="font-size: 1.5rem; margin-bottom: 15px;">Coming Soon</h2>
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 25px;">
+                The memory upload gate opens on <strong>January 27th</strong>.<br>
+                Get your photos ready to share!
+            </p>
+            <button class="btn-primary" onclick="closeWarningModal()">Got it!</button>
+        </div>
+    </div>
     
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
@@ -904,80 +937,80 @@ function toggleMusic() {
         }
 
         async function loadMemories() {
+            // 1. Define Pinned Notes (Always Present)
+            const pinnedNote = {
+                src: 'note.jpg',
+                fullSrc: 'note.jpg',
+                timestamp: Date.now(),
+                owner: 'Admin',
+                caption: 'A special note for everyone.',
+                public_id: 'pinned_note'
+            };
+
+            const pinnedNote1 = {
+                src: 'note1.jpeg',
+                fullSrc: 'note1.jpeg',
+                timestamp: Date.now(),
+                owner: 'Admin',
+                caption: 'A special note for everyone.',
+                public_id: 'pinned_note1'
+            };
+
+            // Start with pinned notes
+            let allPhotos = [pinnedNote1, pinnedNote];
+
             try {
+                // 2. Try fetching Cloud images
                 const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${TAG}.json`);
-                if (!res.ok) throw new Error("No images found");
-                const data = await res.json();
                 
-                // Process and Sort
-                const validPhotos = data.resources.map(img => {
-                    // Extract info from public_id: temp_{TIMESTAMP}_{BASE64}
-                    const parts = img.public_id.split('_');
-                    if(parts.length < 3 || parts[0] !== 'temp') return null;
+                if (res.ok) {
+                    const data = await res.json();
                     
-                    const timestamp = parseInt(parts[1]);
-                    if (isNaN(timestamp)) return null;
+                    const validPhotos = data.resources.map(img => {
+                         // Extract info from public_id: temp_{TIMESTAMP}_{BASE64}
+                        const parts = img.public_id.split('_');
+                        if(parts.length < 3 || parts[0] !== 'temp') return null;
+                        
+                        const timestamp = parseInt(parts[1]);
+                        if (isNaN(timestamp)) return null;
 
-                    // Decode Metadata
-                    let caption = "";
-                    let owner = "Anonymous";
-                    try {
-                        const encoded = parts.slice(2).join('_'); // Rejoin if base64 had underscores
-                        const jsonStr = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
-                        const meta = JSON.parse(jsonStr);
-                        owner = meta.n || "Anonymous";
-                        caption = meta.c || "";
-                    } catch(e) { console.error("Decode err", e); }
+                        // Decode Metadata
+                        let caption = "";
+                        let owner = "Anonymous";
+                        try {
+                            const encoded = parts.slice(2).join('_'); // Rejoin if base64 had underscores
+                            const jsonStr = atob(encoded.replace(/-/g, '+').replace(/_/g, '/'));
+                            const meta = JSON.parse(jsonStr);
+                            owner = meta.n || "Anonymous";
+                            caption = meta.c || "";
+                        } catch(e) { console.error("Decode err", e); }
 
-                    return {
-                        src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto,w_800/${img.public_id}.jpg`,
-                        fullSrc: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${img.public_id}.jpg`,
-                        timestamp,
-                        public_id: img.public_id, // Ensure public_id is passed
-                        owner,
-                        caption
-                    };
-                }).filter(Boolean).sort((a, b) => b.timestamp - a.timestamp); // Newest first
+                        return {
+                            src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto,w_800/${img.public_id}.jpg`,
+                            fullSrc: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${img.public_id}.jpg`,
+                            timestamp,
+                            public_id: img.public_id,
+                            owner,
+                            caption
+                        };
+                    }).filter(Boolean).sort((a, b) => b.timestamp - a.timestamp); // Newest first
+                    
+                    // Filter out hidden images (deleted by admin)
+                    const hiddenImages = JSON.parse(localStorage.getItem('hidden_images') || '[]');
+                    const visibleCloudPhotos = validPhotos.filter(photo => !hiddenImages.includes(photo.public_id));
 
-                // Pinned Memory (Note)
-                const pinnedNote = {
-                    src: 'note.jpg',
-                    fullSrc: 'note.jpg',
-                    timestamp: Date.now(), // Always "fresh"
-                    owner: 'Admin',
-                    caption: 'A special note for everyone.',
-                    public_id: 'pinned_note' // Special ID
-                };
-
-                // Pinned Memory (Note 1)
-                const pinnedNote1 = {
-                    src: 'note1.jpeg',
-                    fullSrc: 'note1.jpeg',
-                    timestamp: Date.now(), // Always "fresh"
-                    owner: 'Admin',
-                    caption: 'A special note for everyone.',
-                    public_id: 'pinned_note1' // Special ID
-                };
-                
-                // Prepend pinned notes (note1 first, then note, so they appear in order)
-                validPhotos.unshift(pinnedNote1);
-                validPhotos.unshift(pinnedNote);
-
-                // Filter out hidden images (deleted by admin)
-                const hiddenImages = JSON.parse(localStorage.getItem('hidden_images') || '[]');
-                const visiblePhotos = validPhotos.filter(photo => !hiddenImages.includes(photo.public_id));
-
-                memories = visiblePhotos; // Store globally
-                document.getElementById('photoCount').textContent = visiblePhotos.length;
-                
-                renderGallery(memories);
-
+                    // Append cloud photos to pinned ones
+                    allPhotos = [...allPhotos, ...visibleCloudPhotos];
+                }
             } catch (err) {
-                console.warn(err);
-                document.getElementById('gallery').innerHTML = `<div style="text-align:center; grid-column:1/-1; padding:50px; color:var(--text-muted);">
-                        Start the feed by adding a memory.
-                    </div>`;
+                console.warn("Cloudinary fetch failed or empty:", err);
+                // We still have pinned notes, so we continue
             }
+
+            // 3. Finalize
+            memories = allPhotos;
+            document.getElementById('photoCount').textContent = memories.length;
+            renderGallery(memories);
         }
         
         function renderGallery(items) {
@@ -999,6 +1032,9 @@ function toggleMusic() {
                 el.onclick = () => showLightbox(globalIndex);
                 
                 el.innerHTML = `
+                    ${(photo.public_id === 'pinned_note' || photo.public_id === 'pinned_note1') 
+                        ? '<div class="pinned-badge">📌 Pinned</div>' 
+                        : ''}
                     <img src="${photo.src}" alt="${photo.caption}" loading="lazy">
                     ${isAdmin ? `<button class="delete-btn" onclick="deleteMemory(event, '${photo.public_id}')">&times;</button>` : ''}
                     <div class="card-meta">
@@ -1078,7 +1114,11 @@ function toggleMusic() {
         // --- UI FUNCS ---
 
         function openModal() {
-            document.getElementById('uploadModal').classList.add('active');
+            document.getElementById('warningModal').classList.add('active');
+        }
+
+        function closeWarningModal() {
+            document.getElementById('warningModal').classList.remove('active');
         }
 
         function closeModal() {
