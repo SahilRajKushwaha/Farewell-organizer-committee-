@@ -72,7 +72,6 @@
         }
       }
 
-      /* Enhanced Welcome Button */
       .enter-btn {
         position: relative;
         width: 260px;
@@ -85,37 +84,14 @@
         font-weight: 700;
         letter-spacing: 2px;
         cursor: pointer;
-        box-shadow: 
-          0 0 40px rgba(255, 215, 0, 0.7),
-          0 8px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), 0 8px 20px rgba(0, 0, 0, 0.4);
         transition: all 0.3s ease;
         overflow: hidden;
       }
 
-      .enter-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        transition: left 0.5s;
-      }
-
       .enter-btn:hover {
         transform: translateY(-3px) scale(1.05);
-        box-shadow: 
-          0 0 60px rgba(255, 215, 0, 1),
-          0 12px 30px rgba(0, 0, 0, 0.6);
-      }
-
-      .enter-btn:hover::before {
-        left: 100%;
-      }
-
-      .enter-btn:active {
-        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 0 60px rgba(255, 215, 0, 1);
       }
 
       /* ================= LOGIN ================= */
@@ -141,7 +117,6 @@
         pointer-events: none;
       }
 
-      /* Enhanced Glassmorphism Login Card */
       .login-card {
         position: relative;
         z-index: 2;
@@ -153,9 +128,7 @@
         border-radius: 24px;
         text-align: center;
         border: 2px solid rgba(255, 255, 255, 0.15);
-        box-shadow: 
-          0 8px 32px rgba(0, 0, 0, 0.4),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         animation: fadeUp 1.2s ease;
       }
 
@@ -169,34 +142,14 @@
         font-weight: 700;
       }
 
-      .input-group {
-        position: relative;
-        margin: 20px 0;
-      }
-
       .login-card input {
         width: 100%;
         padding: 15px 20px;
+        margin: 10px 0;
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: rgba(0, 0, 0, 0.4);
         color: white;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .login-card input:focus {
-        outline: none;
-        border-color: #FFD700;
-        background: rgba(0, 0, 0, 0.6);
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        transform: translateY(-2px);
-      }
-
-      .login-card input::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-        font-weight: 300;
       }
 
       .login-card button {
@@ -208,35 +161,14 @@
         background: linear-gradient(135deg, #FFD700, #FFA500);
         color: black;
         font-weight: 700;
-        font-size: 1.1rem;
-        letter-spacing: 1px;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-      }
-
-      .login-card button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
-        background: linear-gradient(135deg, #FFA500, #FFD700);
       }
 
       .error {
         display: none;
         color: #ff6b6b;
         margin-top: 15px;
-        padding: 10px;
-        background: rgba(255, 107, 107, 0.1);
-        border-radius: 8px;
-        border: 1px solid rgba(255, 107, 107, 0.3);
         font-weight: 500;
-      }
-
-      .hint {
-        margin-top: 20px;
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.6);
-        font-style: italic;
       }
 
       /* MUSIC CONTROL BUTTON */
@@ -253,37 +185,25 @@
         cursor: pointer;
         width: 45px;
         height: 45px;
-        display: flex;
+        display: none; /* Hidden until site is entered */
         justify-content: center;
         align-items: center;
         backdrop-filter: blur(10px);
       }
 
-      /* ================= ANIMATIONS ================= */
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(40px) scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       @media (max-width: 768px) {
-        .welcome-content h1 {
-          font-size: 2rem;
-          letter-spacing: 3px;
-        }
-        .login-card {
-          width: 90%;
-        }
+        .welcome-content h1 { font-size: 2rem; }
+        .login-card { width: 90%; }
       }
     </style>
   </head>
   <body>
-    <audio id="globalMusic" src="music1.mp3" loop autoplay playsinline></audio>
+    <audio id="globalMusic" src="music1.mp3" loop></audio>
     
     <button id="musicToggle" onclick="toggleMusic()">🔊</button>
 
@@ -291,9 +211,7 @@
       <video autoplay muted loop playsinline><source src="video4.mp4" /></video>
       <div class="welcome-content">
         <h1>WELCOME XAVERIAN'S</h1>
-        <button class="enter-btn" onclick="enterSite()">
-          ENTER
-        </button>
+        <button class="enter-btn" onclick="enterSite()">ENTER</button>
       </div>
     </div>
 
@@ -301,20 +219,16 @@
       <video autoplay muted loop playsinline><source src="video1.mp4" /></video>
       <div class="login-card">
         <h2>🔒 Memory Lock</h2>
-        <div class="input-group">
-          <input id="username" placeholder="Enter Your Name" autocomplete="off" />
-        </div>
-        <div class="input-group">
-          <input id="password" type="password" placeholder="Your Secret Code" autocomplete="off" />
-        </div>
+        <input id="username" placeholder="Enter Your Name" autocomplete="off" />
+        <input id="password" type="password" placeholder="Your Secret Code" autocomplete="off" />
         <button id="loginBtn">Unlock Memories</button>
-        <div class="error" id="error">❌ Access Denied - Check your credentials</div>
-        <div class="hint">💡 Hint: Your code is yourname + 3 digits</div>
+        <div class="error" id="error">❌ Access Denied</div>
+        <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa;">💡 Hint: Your code is yourname + 3 digits</div>
       </div>
     </div>
 
     <script>
-      // FIXED: Added missing commas
+      // FIXED: Added missing commas in the object
       const userCredentials = {
         "sahil raj": "lencho",
         "shivam": "lencho",
@@ -360,17 +274,6 @@
       const music = document.getElementById("globalMusic");
       const welcomePage = document.getElementById("welcomePage");
       const loginPage = document.getElementById("loginPage");
-      const loginBtn = document.getElementById("loginBtn");
-      const username = document.getElementById("username");
-      const password = document.getElementById("password");
-      const error = document.getElementById("error");
-
-      // Automatic play attempt
-      window.onload = () => {
-        music.play().catch(() => {
-          console.log("Autoplay blocked by browser. Music will start on interaction.");
-        });
-      };
 
       function toggleMusic() {
         if (music.paused) {
@@ -383,33 +286,28 @@
       }
 
       function enterSite() {
-        music.play().catch(() => {});
+        // Music plays on click to bypass browser restrictions
+        music.play().catch(e => console.log("Audio play failed"));
         welcomePage.style.display = "none";
         loginPage.style.display = "flex";
+        document.getElementById("musicToggle").style.display = "flex";
       }
 
-      loginBtn.onclick = () => {
-        const u = username.value.toLowerCase().trim();
-        const originalName = username.value.trim();
-        const enteredPassword = password.value.toLowerCase().trim();
+      document.getElementById("loginBtn").onclick = () => {
+        const u = document.getElementById("username").value.toLowerCase().trim();
+        const p = document.getElementById("password").value.toLowerCase().trim();
         
-        if (userCredentials[u] && userCredentials[u] === enteredPassword) {
-          localStorage.setItem('user_name', originalName);
+        if (userCredentials[u] === p) {
+          localStorage.setItem('user_name', document.getElementById("username").value.trim());
           window.location.href = "memory_wall.html";
         } else {
-          error.style.display = "block";
-          document.querySelector('.login-card').style.animation = 'none';
-          setTimeout(() => {
-            document.querySelector('.login-card').style.animation = 'fadeUp 0.3s ease';
-          }, 10);
+          document.getElementById("error").style.display = "block";
         }
       };
 
-      password.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') loginBtn.click();
-      });
-      username.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') password.focus();
+      // Press Enter to login
+      document.getElementById("password").addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById("loginBtn").click();
       });
     </script>
   </body>
