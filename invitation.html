@@ -267,25 +267,54 @@
             }
         }
     </style>
-    <script>
-        const bgMusic = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        let isPlaying = false;
+    
+<script>
+const bgMusic = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+let isPlaying = false;
 
-        function toggleMusic() {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicBtn.textContent = '🔇';
-                musicBtn.classList.remove('playing');
-            } else {
-                bgMusic.play();
-                musicBtn.textContent = '🔊';
-                musicBtn.classList.add('playing');
-            }
-            isPlaying = !isPlaying;
-        }
-    </script>
+// Try autoplay on load
+window.addEventListener('load', () => {
+  bgMusic.volume = 0.6;
 
+  bgMusic.play()
+    .then(() => {
+      isPlaying = true;
+      musicBtn.textContent = '🔊';
+      musicBtn.classList.add('playing');
+    })
+    .catch(() => {
+      // Autoplay blocked — wait for user interaction
+      isPlaying = false;
+      musicBtn.textContent = '🔇';
+
+      const unlock = () => {
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          musicBtn.textContent = '🔊';
+          musicBtn.classList.add('playing');
+          document.removeEventListener('click', unlock);
+        });
+      };
+
+      document.addEventListener('click', unlock, { once: true });
+    });
+});
+
+function toggleMusic() {
+  if (isPlaying) {
+    bgMusic.pause();
+    musicBtn.textContent = '🔇';
+    musicBtn.classList.remove('playing');
+  } else {
+    bgMusic.play();
+    musicBtn.textContent = '🔊';
+    musicBtn.classList.add('playing');
+  }
+
+  isPlaying = !isPlaying;
+}
+</script>
     <div class="info-section">
       <div class="invitation-box">
         <img src="invitation.jpg" alt="Farewell Invitation Card" />
