@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farewell Invitation</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* ================= WELCOME ================= */
+      .welcome-page {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .welcome-page video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .welcome-page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(138,43,226,0.4));
+        pointer-events: none;
+      }
+      .welcome-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+      .welcome-content h1 {
+        font-size: 3.5rem;
+        letter-spacing: 8px;
+        margin-bottom: 50px;
+        font-family: "Playfair Display", serif;
+        background: linear-gradient(135deg, #FFD700, #FFA500, #FF69B4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        animation: titleGlow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        from {
+          filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+        }
+        to {
+          filter: drop-shadow(0 0 40px rgba(255, 165, 0, 0.8));
+        }
+      }
+
+      .enter-btn {
+        position: relative;
+        width: 260px;
+        height: 60px;
+        border-radius: 16px;
+        border: none;
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+        color: #000;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        cursor: pointer;
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), 0 8px 20px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      }
+
+      .enter-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 0 60px rgba(255, 215, 0, 1);
+      }
+
+      /* ================= LOGIN ================= */
+      .login-page {
+        position: fixed;
+        inset: 0;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-page video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .login-page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(75,0,130,0.4));
+        pointer-events: none;
+      }
+
+      .login-card {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        padding: 40px 35px;
+        width: 360px;
+        border-radius: 24px;
+        text-align: center;
+        border: 2px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        animation: fadeUp 1.2s ease;
+      }
+
+      .login-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+      }
+
+      .login-card input {
+        width: 100%;
+        padding: 15px 20px;
+        margin: 10px 0;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(0, 0, 0, 0.4);
+        color: white;
+      }
+
+      .login-card button {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        color: black;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .login-card button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+      }
+
+      .error {
+        display: none;
+        color: #ff6b6b;
+        margin-top: 15px;
+        font-weight: 500;
+      }
+
+      /* ================= SCANNER BUTTON (TOP RIGHT) ================= */
+      .scanner-btn {
+        position: fixed;
+        top: 20px;
+        right: 80px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #FFD700;
+        background: rgba(255, 215, 0, 0.2);
+        backdrop-filter: blur(10px);
+        color: #FFD700;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 
+                    0 0 40px rgba(255, 215, 0, 0.3),
+                    inset 0 0 15px rgba(255, 215, 0, 0.1);
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+      .scanner-btn:hover {
+        transform: scale(1.15);
+        background: rgba(255, 215, 0, 0.3);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 
+                    0 0 60px rgba(255, 215, 0, 0.5),
+                    inset 0 0 20px rgba(255, 215, 0, 0.2);
+      }
+
+      @keyframes glowPulse {
+        0%, 100% {
+          box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 
+                      0 0 40px rgba(255, 215, 0, 0.3),
+                      inset 0 0 15px rgba(255, 215, 0, 0.1);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(255, 215, 0, 0.7), 
+                      0 0 60px rgba(255, 215, 0, 0.5),
+                      inset 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+      }
+
+      /* ================= POPUP MODAL ================= */
+      .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .popup-content {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 90%;
+        max-height: 90%;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+      .popup-content h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #FFD700, #FFA500);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .popup-content img {
+        max-width: 100%;
+        max-height: 60vh;
+        border-radius: 12px;
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+      }
+
+      .back-btn {
+        display: block;
+        margin: 20px auto 0;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes popIn {
+        from { 
+          opacity: 0; 
+          transform: scale(0.5);
+        }
+        to { 
+          opacity: 1; 
+          transform: scale(1);
+        }
+      }
+
+      /* MUSIC CONTROL BUTTON */
+      #musicToggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+        background: rgba(255, 215, 0, 0.2);
+        border: 2px solid #FFD700;
+        color: #FFD700;
+        padding: 10px;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5),
+                    inset 0 0 15px rgba(255, 215, 0, 0.1);
+        animation: glowPulse 2s ease-in-out infinite;
+      }
+
+      #musicToggle:hover {
+        transform: scale(1.15);
+        background: rgba(255, 215, 0, 0.3);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+                    inset 0 0 20px rgba(255, 215, 0, 0.2);
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 768px) {
+        .welcome-content h1 { font-size: 2rem; }
+        .login-card { width: 90%; padding: 30px 25px; }
+        .scanner-btn { 
+          width: 45px; 
+          height: 45px; 
+          font-size: 1.3rem;
+          top: 15px;
+          right: 70px;
+        }
+        #musicToggle {
+          width: 45px;
+          height: 45px;
+          top: 15px;
+          right: 15px;
+        }
+        .popup-content { padding: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="globalMusic" src="music1.mp3" loop></audio>
+    
+    <button id="musicToggle" onclick="toggleMusic()">🔊</button>
+    <button class="scanner-btn" id="scannerBtn" onclick="openScanner()" title="View QR Scanner">📱</button>
+
+    <div class="welcome-page" id="welcomePage">
+      <video autoplay muted loop playsinline><source src="video4.mp4" /></video>
+      <div class="welcome-content">
+        <h1>WELCOME XAVERIAN'S</h1>
+        <button class="enter-btn" onclick="enterSite()">ENTER</button>
+      </div>
+    </div>
+
+    <div class="login-page" id="loginPage">
+      <video autoplay muted loop playsinline><source src="video1.mp4" /></video>
+      <div class="login-card">
+        <h2>🔒 Memory Lock</h2>
+        <input id="username" placeholder="Enter Your Name" autocomplete="off" />
+        <input id="password" type="password" placeholder="Your Secret Code" autocomplete="off" />
+        <button id="loginBtn">Unlock Memories</button>
+        <div class="error" id="error">❌ Access Denied</div>
+        <div style="margin-top: 15px; font-size: 0.8rem; color: #aaa;">💡 Hint: Your code is yourname + 3 digits</div>
+      </div>
+    </div>
+
+    <!-- Scanner Popup -->
+    <div class="popup-overlay" id="scannerPopup">
+      <div class="popup-content">
+        <h3>📱 QR Scanner</h3>
+        <img src="scanner.jpg" alt="QR Code Scanner" />
+        <button class="back-btn" onclick="closeScanner()">← Back</button>
+      </div>
+    </div>
+
+    <script>
+      const userCredentials = {
+        "sahil raj": "lencho",
+        "shivam": "lencho",
+        "ayush mehta": "ayushmehta856",
+        "pranjal": "lencho",
+        "shreyansh": "shreyansh463",
+        "kunj": "kunj507",
+        "rishav": "rishav628",
+        "himanshu": "himanshu934",
+        "mansi": "mansi175",
+        "muskan": "muskan482",
+        "srijan": "srijan693",
+        "shiddant": "shiddant271",
+        "swati": "swati814",
+        "nancy": "nancy526",
+        "ayush": "ayush347",
+        "asif jamal": "asifjamal609",
+        "payal": "payal158",
+        "shristy": "shristy782",
+        "sakshi priya": "sakshipriya914",
+        "vandana": "vandana436",
+        "rudrani": "rudrani621",
+        "priyanshi": "priyanshi573",
+        "kajal": "kajal289",
+        "nihal": "nihal805",
+        "om": "om142",
+        "ananya": "ananya967",
+        "aishwarya": "aishwarya534",
+        "asifa": "asifa716",
+        "milki": "milki398",
+        "siddhi": "siddhi652",
+        "sanjana": "sanjana471",
+        "suhana": "suhana823",
+        "rashi": "rashi195",
+        "vaishnavi": "vaishnavi706",
+        "yamini": "yamini384",
+        "aayushi": "aayushi549",
+        "richa": "richa867",
+        "riya": "riya065",
+        "shiba": "shiba908"
+      };
+
+      const music = document.getElementById("globalMusic");
+      const welcomePage = document.getElementById("welcomePage");
+      const loginPage = document.getElementById("loginPage");
+      const scannerPopup = document.getElementById("scannerPopup");
+      const scannerBtn = document.getElementById("scannerBtn");
+
+      function toggleMusic() {
+        if (music.paused) {
+          music.play();
+          document.getElementById("musicToggle").innerText = "🔊";
+        } else {
+          music.pause();
+          document.getElementById("musicToggle").innerText = "🔇";
+        }
+      }
+
+      function enterSite() {
+        music.play().catch(e => console.log("Audio play failed"));
+        welcomePage.style.display = "none";
+        loginPage.style.display = "flex";
+        document.getElementById("musicToggle").style.display = "flex";
+        scannerBtn.style.display = "flex";
+      }
+
+      function openScanner() {
+        scannerPopup.style.display = "flex";
+      }
+
+      function closeScanner() {
+        scannerPopup.style.display = "none";
+      }
+
+      // Close popup when clicking outside
+      scannerPopup.addEventListener('click', (e) => {
+        if (e.target === scannerPopup) {
+          closeScanner();
+        }
+      });
+
+      document.getElementById("loginBtn").onclick = () => {
+        const u = document.getElementById("username").value.toLowerCase().trim();
+        const p = document.getElementById("password").value.toLowerCase().trim();
+        
+        if (userCredentials[u] === p) {
+          localStorage.setItem('user_name', document.getElementById("username").value.trim());
+          window.location.href = "memory_wall.html";
+        } else {
+          document.getElementById("error").style.display = "block";
+        }
+      };
+
+      // Press Enter to login
+      document.getElementById("password").addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') document.getElementById("loginBtn").click();
+      });
+
+      // Press Escape to close popup
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && scannerPopup.style.display === 'flex') {
+          closeScanner();
+        }
+      });
+    </script>
+  </body>
+</html>
